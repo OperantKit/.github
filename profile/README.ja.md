@@ -1,6 +1,6 @@
 # OperantKit
 
-[English](README.md)
+:gb: [English README](README.md)
 
 行動研究のためのオペラント条件づけツールキット。
 
@@ -8,58 +8,66 @@
 
 ## アーキテクチャ
 
-OperantKit は計算能力と責務範囲によって5層に関心を分離する:
+中核パッケージ **contingency-dsl** は、強化随伴性と Pavlov 型対提示を宣言するための言語非依存な仕様である。パラダイム中立な形式的基盤の上で、科学的カテゴリ別に 6 層で構成されている：
 
 ```
-                         contingency-dsl
- ┌─────────────────────────────────────────────────┐
- │  Core                 非チューリング完全（CFG）    │
- │  FR 10, Conc(VI 30-s, VI 60-s)                  │
- ├──────────────────────────────────────────────────┤
- │  Core-Stateful        CFG構文、TC近傍評価         │
- │  Pctl(IRT, 50), Adj(start=FR 1, step=2)         │
- ├──────────────────────────────────────────────────┤
- │  Core-TrialBased      CFG構文、離散試行           │
- │  MTS(comparisons=3, consequence=CRF, ITI=5s)    │
- └──────────────────────────────────────────────────┘
- ┌──────────────────────────────────────────────────┐
- │  contingency-core     チューリング完全             │
- │  動的遷移: フェーズ変更、ヨーキング、               │
- │  適応的滴定                                       │
- ├──────────────────────────────────────────────────┤
- │  experiment-core      チューリング完全 + 安全性制約 │
- │  有限化: セッション終了、安定状態基準、              │
- │  ABAデザイン検証                                   │
- └──────────────────────────────────────────────────┘
+ ┌──────────────────────────────────────────────────────────────┐
+ │  Annotation    JEAB Method メタデータ（Subjects / Apparatus / │
+ │                Procedure / Measurement）+ 拡張                │
+ ├──────────────────────────────────────────────────────────────┤
+ │  Experiment    多フェーズデザイン; phase と context を        │
+ │                第一級構成要素; アノテーション継承              │
+ ├──────────────────────────────────────────────────────────────┤
+ │  Composed      Operant × Respondent: CER, PIT, autoshaping,   │
+ │                omission, two-process theory                   │
+ ├──────────────────────────────┬───────────────────────────────┤
+ │  Operant                     │  Respondent                   │
+ │  三項随伴性 (SD-R-SR)         │  二項随伴性 (CS-US)            │
+ │  Ferster-Skinner 分類の       │  Tier A プリミティブ           │
+ │  スケジュール; 状態保持;       │  (Pair, Contingency,          │
+ │  試行ベース; 嫌悪制御          │  Compound, Differential, …)   │
+ ├──────────────────────────────┴───────────────────────────────┤
+ │  Foundations   CFG / LL(2) メタ文法; パラダイム中立な型       │
+ │                (contingency, 時間, 刺激, valence)             │
+ └──────────────────────────────────────────────────────────────┘
 ```
 
-**contingency-dsl** は随伴性が「何であるか」を宣言する。
-**contingency-core** は随伴性が「どう変化するか」を定義する。
-**experiment-core** は実験が「終了し測定可能なデータを生成すること」を保証する。
+**Foundations** はパラダイム中立な字句と型の構造を提供する。
+**Operant** と **Respondent** は各随伴性が「何であるか」を宣言する。
+**Composed** は両パラダイムを組み合わせる手続きを、operant + respondent プリミティブから構成した `PhaseSequence` AST ツリーとして表現する。
+**Experiment** は phase と context を第一級構成要素として多フェーズデザインを宣言する。
+**Annotation** は JEAB Method カテゴリ準拠のメタデータを任意の構成要素に付与する。
 
-測定仕様（反応率、強化率、IRT分布、切り替え率）と手続き記述との接続は、実験層・分析層の責務であり、DSLの責務ではない。
+基底 DSL は非チューリング完全（CFG）である。より深い Pavlov 型手続き（高次条件づけ、阻止、条件性弁別（occasion setting）、更新（renewal）、再生（reinstatement）等）は姉妹パッケージ **contingency-respondent-dsl** に存在し、Respondent 拡張点に差し込まれる。
+
+測定仕様（反応率、強化率、IRT 分布、切り替え率）と手続き記述との接続は、実験層・分析層の責務であり、DSL の責務ではない。
 
 ## パッケージ
 
 | カテゴリ | パッケージ | 役割 |
 |---|---|---|
-| **core** | contingency-dsl | 言語非依存のDSL仕様（文法、ASTスキーマ、適合テスト） |
-| | contingency-dsl-py | Pythonリファレンスパーサー |
+| **core** | contingency-dsl | 言語非依存の DSL 仕様（EBNF, AST スキーマ, 適合テスト） |
+| | contingency-respondent-dsl | Respondent 層を拡張する Tier B Pavlov 型手続き |
+| | contingency-dsl-py | Python リファレンスパーサ |
 | | contingency-dsl-paper | DSL AST → JEAB/J-ABA Method section コンパイラ |
-| | contingency-dsl-reader | 論文Method section → DSL AST 抽出器 |
-| | contingency-py | Python強化スケジュールエンジン |
-| | contingency-rs | Rust実装（HIL、PyO3/WASM/C FFIバインディング） |
+| | contingency-dsl-reader | 論文 Method section → DSL AST 抽出器 |
+| | contingency-py | Python 強化スケジュールエンジン |
+| | contingency-rs | Rust エンジン（PyO3 / WASM / C FFI / KMP バインディング、HIL バイナリ） |
 | | models | コア行動モデル（手続き・結果） |
 | **experiment** | experiment-core | セッションライフサイクル、実験文脈、復活パラダイム |
-| | contingency-annotator | アノテーション拡張（刺激、時間、被験体、装置） |
-| | session-recorder | セッションランナー + JSONLイベントロガー |
+| | stimulus-annotator | アノテーション参照実装（刺激、時間、被験体、装置） |
+| | session-recorder | セッションランナー + JSONL イベントロガー |
+| **experiment-tools** | experiment-io | `contingency.hw` を包むハードウェア I/O ラッパー |
+| | contingency-bench | HIL タイミング精度ベンチマークハーネス |
+| | schedule-writer / schedule-visualizer | DSL 作成・可視化ツール |
 | **analysis** | session-analyzer | 累積記録、統計分析、モデルフィッティング |
 | **simulators** | behavior-simulator | 動物モデルシミュレーション |
-| | ai-operant-box | LLMを仮想被験体とする実験環境 |
-| | social-contingency-sim | 社会的随伴性シミュレータ（7方策 x 5シナリオ） |
-| **tools** | aba-advisor | ABA介入提案エンジン（TF-IDF + ルール + opt-in LLM） |
+| | ai-operant-box | LLM を仮想被験体とする実験環境 |
+| | social-contingency-sim | 社会的随伴性シミュレータ（7 方策 × 5 シナリオ） |
+| **tools** | aba-advisor | ABA 介入提案エンジン（TF-IDF + ルール + opt-in LLM） |
 | | behavior-scope | 非侵襲的リアルタイム観測ダッシュボード |
+| | operantkit-frontend | 実験設計 UI |
 
 ## 起源
 
-[YutoMizutani/OperantKit](https://github.com/YutoMizutani/OperantKit)（Swift, MIT, 2018-2020）を復興・進化させた行動分析ツールキット。
+[YutoMizutani/OperantKit](https://github.com/YutoMizutani/OperantKit)（Swift, MIT, 2018–2020）を復興・進化させた行動分析ツールキット。
