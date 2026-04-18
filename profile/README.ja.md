@@ -49,8 +49,8 @@
 | **core** | contingency-dsl | 言語非依存の DSL 仕様（EBNF, AST スキーマ, 適合テスト） |
 | | contingency-respondent-dsl | Respondent 層を拡張する Tier B Pavlov 型手続き |
 | | contingency-dsl-py | Python リファレンスパーサ |
-| | contingency-dsl-paper | DSL AST → JEAB/J-ABA Method section コンパイラ |
-| | contingency-dsl-reader | 論文 Method section → DSL AST 抽出器 |
+| | contingency-dsl2procedure | DSL AST → JEAB/J-ABA Method section コンパイラ |
+| | contingency-procedure2dsl | 論文 Method section → DSL AST 抽出器 |
 | | contingency-py | Python 強化スケジュールエンジン |
 | | contingency-rs | Rust エンジン（PyO3 / WASM / C FFI / KMP バインディング、HIL バイナリ） |
 | | models | コア行動モデル（手続き・結果） |

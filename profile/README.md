@@ -49,8 +49,8 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | **core** | contingency-dsl | Language-independent DSL specification (EBNF, AST schema, conformance tests) |
 | | contingency-respondent-dsl | Tier B Pavlovian procedures extending the Respondent layer |
 | | contingency-dsl-py | Python reference parser |
-| | contingency-dsl-paper | DSL AST &rarr; JEAB/J-ABA Method section compiler |
-| | contingency-dsl-reader | Method section text &rarr; DSL AST extractor |
+| | contingency-dsl2procedure | DSL AST &rarr; JEAB/J-ABA Method section compiler |
+| | contingency-procedure2dsl | Method section text &rarr; DSL AST extractor |
 | | contingency-py | Python reinforcement schedule engine |
 | | contingency-rs | Rust engine (PyO3 / WASM / C FFI / KMP bindings, HIL binary) |
 | | models | Core behavioral models (methods & results) |
