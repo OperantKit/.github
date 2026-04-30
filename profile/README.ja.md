@@ -56,6 +56,17 @@
 | [contingency-procedure2dsl](https://github.com/OperantKit/contingency-procedure2dsl) | 📝 設計中 | Method section text → DSL AST extractor |
 | [contingency-py](https://github.com/OperantKit/contingency-py) | 🚧 実装中 | Python reinforcement schedule engine (DSL AST → Schedule bridge + all schedules) |
 | [contingency-rs](https://github.com/OperantKit/contingency-rs) | 🚧 実装中 | Rust engine (PyO3 / WASM / C FFI / KMP bindings, HIL binary) |
+| [experiment-core](https://github.com/OperantKit/experiment-core) | ✅ 実装済 | Session lifecycle, ExperimentContext, Renewal (ABA/AAB/ABC), EventSink Protocol |
+| [OperantKitLog](https://github.com/OperantKit/OperantKitLog) | ✅ 実装済 | OKL v1 wire-format spec (canonical, language-independent) + conformance fixtures |
+| [session-recorder](https://github.com/OperantKit/session-recorder) | ✅ 実装済 | OKL v1 Python writer (OklSink, EventSink impl) + Python reader; reference implementation of the spec |
+| [session-runner](https://github.com/OperantKit/session-runner) | 新設 | Manual session driver (SessionRunner): pushes events to any EventSink |
+| [experiment-io](https://github.com/OperantKit/experiment-io) | 🚧 実装中 | HAL Protocols + virtual/serial/HIL backends + drive() helper |
+| [contingency-bench](https://github.com/OperantKit/contingency-bench) | 🚧 実装中 | HIL timing-precision benchmark harness |
+| [schedule-writer](https://github.com/OperantKit/schedule-writer) | 未実装 | DSL authoring tool (list/dropdown → DSL text) |
+| [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | 未実装 | DSL visualizer (環境状態の時間前後戻し) |
+| [session-visualizer](https://github.com/OperantKit/session-visualizer) | ✅ 実装済 | Live session viewer (in-process EventSink + cross-process JSONL/OKL tail, SSE) |
+| [session-analyzer](https://github.com/OperantKit/session-analyzer) | 🚧 実装中 | Cumulative records, statistics, model fitting |
+| [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | 🚧 実装中 | Experiment/education UI (Next.js) |
 
 <!-- PUBLISHED_PACKAGES_END -->
 
