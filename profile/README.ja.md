@@ -6,6 +6,152 @@
 
 ---
 
+## パイプライン
+
+DSL で強化随伴性を宣言し、仮想ハードウェアまたは実機で実行し、すべてのイベントを OKL として記録し、セッションを解析する — 各ステージは独立したパッケージとして提供される。
+
+```mermaid
+flowchart LR
+    SW[schedule-writer]:::tools --> DSL[contingency-dsl]:::core
+    DSL --> ENG[contingency-py / contingency-rs]:::core
+    ENG --> IO[experiment-io HAL]:::tools
+    IO --> OKL[OperantKitLog]:::exp
+    OKL --> REC[session-recorder]:::exp
+    REC --> ANA[session-analyzer]:::analysis
+    REC --> SVZ[session-visualizer]:::tools
+    SVZ --> FE[operantkit-frontend]:::soft
+    classDef core fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    classDef exp fill:#fff3e0,stroke:#e65100,color:#bf360c
+    classDef tools fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    classDef analysis fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c
+    classDef soft fill:#eceff1,stroke:#455a64,color:#263238
+    click SW "https://github.com/OperantKit/schedule-writer"
+    click DSL "https://github.com/OperantKit/contingency-dsl"
+    click ENG "https://github.com/OperantKit/contingency-py"
+    click IO "https://github.com/OperantKit/experiment-io"
+    click OKL "https://github.com/OperantKit/OperantKitLog"
+    click REC "https://github.com/OperantKit/session-recorder"
+    click ANA "https://github.com/OperantKit/session-analyzer"
+    click SVZ "https://github.com/OperantKit/session-visualizer"
+    click FE "https://github.com/OperantKit/operantkit-frontend"
+```
+
+---
+
+## ① 随伴性を書く — [contingency-dsl](https://github.com/OperantKit/contingency-dsl)
+
+強化スケジュールと Pavlov 型手続きのための非チューリング完全 DSL。一行記述から多フェーズ CER プロトコルまで：
+
+```
+-- 原子スケジュール
+FR5                              -- 固定比率 5
+VI60s                            -- 変動間隔 60 秒
+Conc(VI30s, VI60s)               -- 並立 VI30 vs. VI60
+
+-- 条件性情動反応 (Estes & Skinner, 1941)
+@cs(label="Tone", duration=60s, modality="auditory")
+@us(label="Shock", intensity="0.5mA", delivery="unsignaled")
+
+phase baseline:
+  sessions = 10
+  VI60s
+phase pairing:
+  sessions = 5
+  Pair.ForwardDelay(Tone, Shock, isi=60s, cs_duration=60s)
+phase test:
+  sessions = 3
+  use baseline
+```
+
+6 層構造（Foundations / Operant / Respondent / Composed / Experiment / Annotation）、150 件超の conformance fixture、EBNF + AST スキーマ。姉妹パッケージ [contingency-respondent-dsl](https://github.com/OperantKit/contingency-respondent-dsl) は高次条件づけ・阻止・条件性弁別・更新・再生に対応する。
+
+著作支援ツール: [schedule-writer](https://github.com/OperantKit/schedule-writer) — ドロップダウン選択／ブロック・ドラッグで DSL テキストを生成する。
+
+---
+
+## ② 動かす — [contingency-py](https://github.com/OperantKit/contingency-py) · [contingency-rs](https://github.com/OperantKit/contingency-rs) · [experiment-io](https://github.com/OperantKit/experiment-io)
+
+Python エンジンは Ferster–Skinner の全スケジュール（FR / VR / RR / FI / VI / RI / FT / VT / RT / CRF / EXT、Concurrent、Alternative、DRO / DRL / DRH、Progressive Ratio）を提供する。Rust エンジンは 14 件の決定論的 conformance fixture でビット等価性を確認済みで、PyO3 / WASM / C FFI / KMP バインディングを備える。
+
+```python
+from contingency import ScheduleBuilder
+from experiment_core import ReinforcementCountExit
+from experiment_io import drive
+from experiment_io.hw.backends.virtual import (
+    ManualClock, RecordingReinforcer, VirtualOperandum, VirtualSubject,
+)
+from session_runner import SessionConfig, SessionRunner
+
+clock = ManualClock()
+op = VirtualOperandum(0, VirtualSubject(rate_hz=5.0, seed=0), clock)
+rein = RecordingReinforcer(operandum_index=0)
+runner = SessionRunner(
+    SessionConfig(name="demo", schedule=ScheduleBuilder.fr(1),
+                  exit_condition=ReinforcementCountExit(count=3)),
+    clock=clock,
+)
+runner.start(start_time=clock())
+drive(runner, [op], [rein], clock, reinforcer_duration=0.2)
+```
+
+`virtual` を `serial` / `hil_bridge` に差し替えるだけで同じコードが実機オペラント箱を駆動する。タイミング精度は [contingency-bench](https://github.com/OperantKit/contingency-bench) で検証する。
+
+---
+
+## ③ OKL として記録する — [OperantKitLog](https://github.com/OperantKit/OperantKitLog) · [session-recorder](https://github.com/OperantKit/session-recorder)
+
+OKL v1 は規範的かつ言語非依存なワイヤフォーマット。ヘッダは可読な TOML 風、ボディは 1 行 1 イベントの TSV。上記の `drive()` 呼び出しはそのままこのバイト列を書き出す：
+
+```
+# OKL v1
+# session_name = "demo"
+# clock_type = "ManualClock"
+# subject_id = "subj01"
+# experiment_name = "demo"
+# events:
+#   response          : id:int operandum:int?
+#   reinforcer_start  : id:int potency:float operandum:int?
+#   reinforcer_end    : id:int operandum:int?
+#   state_change      : from:str to:str
+#   phase_enter       : label:str name:str?
+# ---
+0.0    state_change       IDLE  RUNNING
+0.0    phase_enter        Train A
+0.5    response           0     0
+1.0    response           1     0
+1.5    response           2     0
+1.5    reinforcer_start   0     1.0  0
+2.0    reinforcer_end     0     0
+```
+
+5 件の golden fixture と EBNF 文法。任意の reader / writer 実装はこのバイト列で一致しなければならない。Python リファレンス実装は [session-recorder](https://github.com/OperantKit/session-recorder)。
+
+---
+
+## ④ セッションを解析する — [session-analyzer](https://github.com/OperantKit/session-analyzer)
+
+OKL ログから 20 を超える定量分析を直接実行する：累積記録、マッチング則フィット、IRT 分布、需要曲線、般化勾配、ブレイクポイント、遅延割引、行動的運動量 ……。
+
+| 累積記録 | マッチング則フィット | IRT 分布 |
+|---|---|---|
+| <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/cumulative_record.png" width="280"> | <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/matching_law.png" width="280"> | <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/irt_distribution.png" width="280"> |
+
+| 需要曲線 | 遅延割引 | 般化勾配 |
+|---|---|---|
+| <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/demand_curve.png" width="280"> | <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/delay_discounting.png" width="280"> | <img src="https://raw.githubusercontent.com/OperantKit/session-analyzer/main/docs/assets/figures/generalization_gradient.png" width="280"> |
+
+[16 種以上のすべての分析を見る →](https://github.com/OperantKit/session-analyzer)
+
+---
+
+## ⑤ 可視化と教育 — [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) · result-chamber-animator（プレビュー）
+
+Next.js / React 製のライブセッションダッシュボード。[session-visualizer](https://github.com/OperantKit/session-visualizer) の SSE ストリームを受信して描画する。姉妹パッケージ `result-chamber-animator`（ローカルプレビュー）はネズミシルエットと行動間期 3 段合成によるアニメーションを生成し、教室での教育利用に向く。
+
+> フロントエンドのスクリーンショットと animator デモは Phase 2 ロールアウトに合わせて追加する。
+
+---
+
 ## アーキテクチャ
 
 中核パッケージ **contingency-dsl** は、強化随伴性と Pavlov 型対提示を宣言するための言語非依存な仕様である。パラダイム中立な形式的基盤の上で、科学的カテゴリ別に 6 層で構成されている：
