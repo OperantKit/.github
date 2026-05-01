@@ -146,9 +146,13 @@ Twenty-plus quantitative analyses straight from an OKL log: cumulative records, 
 
 ## ⑤ Visualize & teach — [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) · result-chamber-animator (preview)
 
-Live session dashboard built on Next.js / React, fed by [session-visualizer](https://github.com/OperantKit/session-visualizer)'s SSE stream. Companion `result-chamber-animator` (local preview) renders an educational rat-silhouette + 3-phase inter-event-behavior animation suitable for classroom use.
+Browser-based operant chamber and analog cumulative-recorder, built on Next.js / React with the Rust engine compiled to WebAssembly so schedules tick in the page itself. The `Live session` view subscribes to [session-visualizer](https://github.com/OperantKit/session-visualizer)'s SSE stream for real recordings.
 
-> Frontend dashboard screenshot and animator demo will land alongside Phase 2 of the profile rollout.
+| Operant Chamber (sim) | Cumulative Recorder (analog) |
+|---|---|
+| <img src="https://raw.githubusercontent.com/OperantKit/operantkit-frontend/main/docs/assets/screenshots/sim.png" width="420"> | <img src="https://raw.githubusercontent.com/OperantKit/operantkit-frontend/main/docs/assets/screenshots/cumulative-recorder.png" width="420"> |
+
+Companion `result-chamber-animator` (local preview, not yet published) renders a rat-silhouette + 3-phase inter-event-behavior animation suitable for classroom use.
 
 ---
 

@@ -146,9 +146,13 @@ OKL ログから 20 を超える定量分析を直接実行する：累積記録
 
 ## ⑤ 可視化と教育 — [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) · result-chamber-animator（プレビュー）
 
-Next.js / React 製のライブセッションダッシュボード。[session-visualizer](https://github.com/OperantKit/session-visualizer) の SSE ストリームを受信して描画する。姉妹パッケージ `result-chamber-animator`（ローカルプレビュー）はネズミシルエットと行動間期 3 段合成によるアニメーションを生成し、教室での教育利用に向く。
+ブラウザ上で動くオペラント箱とアナログ累積記録器。Next.js / React 製で、Rust エンジンを WebAssembly にコンパイルしてスケジュールがページ内でそのまま回る。`Live session` ビューは [session-visualizer](https://github.com/OperantKit/session-visualizer) の SSE ストリームを購読し、実セッション記録を受信できる。
 
-> フロントエンドのスクリーンショットと animator デモは Phase 2 ロールアウトに合わせて追加する。
+| オペラント箱（シミュレータ） | 累積記録器（アナログ） |
+|---|---|
+| <img src="https://raw.githubusercontent.com/OperantKit/operantkit-frontend/main/docs/assets/screenshots/sim.png" width="420"> | <img src="https://raw.githubusercontent.com/OperantKit/operantkit-frontend/main/docs/assets/screenshots/cumulative-recorder.png" width="420"> |
+
+姉妹パッケージ `result-chamber-animator`（ローカルプレビュー、未公開）はネズミシルエットと行動間期 3 段合成によるアニメーションを生成し、教室での教育利用に向く。
 
 ---
 
