@@ -214,6 +214,7 @@ OKL ログから 20 を超える定量分析を直接実行する：累積記録
 | [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | DSL visualizer (環境状態の時間前後戻し) |
 | [session-visualizer](https://github.com/OperantKit/session-visualizer) | Live session viewer (in-process EventSink + cross-process JSONL/OKL tail, SSE) |
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
+| [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
 
 <!-- PUBLISHED_PACKAGES_END -->
