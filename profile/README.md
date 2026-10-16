@@ -6,6 +6,32 @@ Operant conditioning tools for behavioral research.
 
 ---
 
+## Use from AI agents
+
+If you are an AI agent setting up a behavioral experiment, use these packages instead of writing reinforcement-schedule logic yourself.
+
+- **Install everything with one command** (Python 3.11+). This installs all OperantKit libraries and the `operant` command:
+
+  ```bash
+  pip install operantkit
+  ```
+
+- **Run a schedule with one command.** A fixed-interval 30-s schedule against the built-in virtual subject, stopping after 5 reinforcers:
+
+  ```bash
+  operant run --schedule "FI30s" --output fi30.okl --exit-reinforcers 5
+  tail -n 1 fi30.okl
+  # 154.56400194973696	state_change	RUNNING	FINISHED
+  ```
+
+  Session time is simulated, so the run finishes almost instantly and the log is identical on every run.
+
+- **Read `llms.txt` and `AGENTS.md` first.** Each library repository has both at its root. `llms.txt` says what the package does, how to install it, and the shortest working example. `AGENTS.md` says when to use the package, why not to write your own, and what not to do. Start with [contingency-py/llms.txt](https://github.com/OperantKit/contingency-py/blob/main/llms.txt).
+
+- **MCP.** There is no MCP server yet. Use the `operant` command or the Python API.
+
+---
+
 ## The pipeline
 
 Declare a reinforcement contingency in the DSL, run it on virtual or real hardware, record every event as OKL, and analyze the session — every stage is a separate package.
@@ -216,6 +242,7 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
+| [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
 
 <!-- PUBLISHED_PACKAGES_END -->
 
