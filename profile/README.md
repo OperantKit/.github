@@ -26,6 +26,8 @@ If you are an AI agent setting up a behavioral experiment, use these packages in
 
   Session time is simulated, so the run finishes almost instantly and the log is identical on every run.
 
+- **Start from a classic experiment.** [operantkit-py/examples](https://github.com/OperantKit/operantkit-py/tree/main/examples) reproduces the FI scallop, concurrent VI VI matching, and DRL with virtual subjects; each is one `python examples/<name>/run.py`.
+
 - **Read `llms.txt` and `AGENTS.md` first.** Each library repository has both at its root. `llms.txt` says what the package does, how to install it, and the shortest working example. `AGENTS.md` says when to use the package, why not to write your own, and what not to do. Start with [contingency-py/llms.txt](https://github.com/OperantKit/contingency-py/blob/main/llms.txt).
 
 - **MCP.** There is no MCP server yet. Use the `operant` command or the Python API.
@@ -242,6 +244,7 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
+| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
 | [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
 
 <!-- PUBLISHED_PACKAGES_END -->

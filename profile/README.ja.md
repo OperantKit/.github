@@ -26,6 +26,8 @@
 
   セッション時間は模擬なので実行はすぐ終わり、ログは毎回同一です。
 
+- **古典実験から始める。** [operantkit-py/examples](https://github.com/OperantKit/operantkit-py/tree/main/examples) に、FI スキャロップ・並立 VI VI のマッチング・DRL を仮想被験体で再現する例があります。どれも `python examples/<name>/run.py` 1 本で動きます。
+
 - **まず `llms.txt` と `AGENTS.md` を読む。** 各ライブラリの repo のルートに両方があります。`llms.txt` にはパッケージの役割・インストール方法・最短の動く例を、`AGENTS.md` にはいつ使うか・自作しない理由・やってはいけないことを書いています。入口は [contingency-py/llms.txt](https://github.com/OperantKit/contingency-py/blob/main/llms.txt) です。
 
 - **MCP。** MCP サーバはまだありません。`operant` コマンドか Python API を使ってください。
@@ -242,6 +244,7 @@ OKL ログから 20 を超える定量分析を直接実行する：累積記録
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
+| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
 | [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
 
 <!-- PUBLISHED_PACKAGES_END -->
