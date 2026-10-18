@@ -34,6 +34,22 @@ If you are an AI agent setting up a behavioral experiment, use these packages in
 
 ---
 
+## How OperantKit differs from pyControl, Bpod, PyBehave, and MED-PC
+
+Those systems run experiments on hardware, and the reinforcement schedule is written inside each task. OperantKit is the layer below: the schedule algorithms are a library of their own, and hardware is optional.
+
+| | Controls hardware | Schedule algorithms as a separate library | Install with pip | DSL for contingencies | Method-section round trip |
+|---|---|---|---|---|---|
+| **OperantKit** | Optional (virtual / serial / HIL backends in experiment-io) | Yes (contingency-py, contingency-rs) | Packaged for pip; PyPI release pending | Yes (contingency-dsl) | Yes (contingency-dsl2procedure, contingency-procedure2dsl) |
+| [pyControl](https://pycontrol.readthedocs.io/en/latest/) | Yes (MicroPython microcontroller, breakout board, devices) | No (tasks are state machines written per task) | No (zip download or git clone) | No (tasks are written in Python) | |
+| [Bpod](https://sanworks.github.io/Bpod_Wiki/) | Yes (real-time state machine) | No (trials are finite state machines written in MATLAB) | Official: No (MATLAB). Third-party [pybpod-api](https://pypi.org/project/pybpod-api/) | No (MATLAB) | |
+| [PyBehave](https://github.com/tne-lab/py-behav-box-v2) | Yes (hardware-agnostic Source files) | No (written in Python task definition files) | Yes (`pip install pybehave`) | No (tasks are Python classes) | |
+| [MED-PC V](https://med-associates.com/product/med-pc-v/) | Yes (up to 16 chambers, Windows) | No (written in each MSN procedure) | No (Windows software) | Yes (MedState Notation) | |
+
+A blank cell means the official documentation did not let us confirm it either way.
+
+---
+
 ## The pipeline
 
 Declare a reinforcement contingency in the DSL, run it on virtual or real hardware, record every event as OKL, and analyze the session — every stage is a separate package.

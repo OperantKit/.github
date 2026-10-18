@@ -34,6 +34,22 @@
 
 ---
 
+## pyControl・Bpod・PyBehave・MED-PC との違い
+
+これらはハードウェアで実験を動かすシステムで、強化スケジュールは課題ごとのコードの中に書きます。OperantKit はその下の層です。スケジュールのアルゴリズムが独立したライブラリになっており、ハードウェアは任意です。
+
+| | ハードウェア制御 | スケジュールのアルゴリズムが独立したライブラリか | pip で入るか | 随伴性を書く DSL | Method 節との往復 |
+|---|---|---|---|---|---|
+| **OperantKit** | 任意（experiment-io の virtual / serial / HIL バックエンド） | はい（contingency-py、contingency-rs） | pip 用にパッケージ済み。PyPI への公開は未了 | はい（contingency-dsl） | はい（contingency-dsl2procedure、contingency-procedure2dsl） |
+| [pyControl](https://pycontrol.readthedocs.io/en/latest/) | はい（MicroPython マイコン、ブレイクアウトボード、各デバイス） | いいえ（課題ごとに状態機械として書く） | いいえ（zip のダウンロードか git clone） | いいえ（課題は Python で書く） | |
+| [Bpod](https://sanworks.github.io/Bpod_Wiki/) | はい（リアルタイム状態機械） | いいえ（試行を MATLAB の有限状態機械として書く） | 公式はいいえ（MATLAB）。第三者製の [pybpod-api](https://pypi.org/project/pybpod-api/) あり | いいえ（MATLAB） | |
+| [PyBehave](https://github.com/tne-lab/py-behav-box-v2) | はい（ハードウェア非依存の Source ファイル経由） | いいえ（Python の課題定義ファイルに書く） | はい（`pip install pybehave`） | いいえ（課題は Python のクラス） | |
+| [MED-PC V](https://med-associates.com/product/med-pc-v/) | はい（最大 16 チャンバー、Windows） | いいえ（MSN の手続きごとに書く） | いいえ（Windows 用ソフトウェア） | はい（MedState Notation） | |
+
+空欄は、公式ドキュメントからどちらとも確認できなかった欄です。
+
+---
+
 ## パイプライン
 
 DSL で強化随伴性を宣言し、仮想ハードウェアまたは実機で実行し、すべてのイベントを OKL として記録し、セッションを解析する — 各ステージは独立したパッケージとして提供される。
