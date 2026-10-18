@@ -115,7 +115,7 @@ Authoring helper: [schedule-writer](https://github.com/OperantKit/schedule-write
 
 ## ② Run it — [contingency-py](https://github.com/OperantKit/contingency-py) · [contingency-rs](https://github.com/OperantKit/contingency-rs) · [experiment-io](https://github.com/OperantKit/experiment-io)
 
-The Python engine ships every Ferster–Skinner schedule (FR / VR / RR / FI / VI / RI / FT / VT / RT / CRF / EXT, Concurrent, Alternative, DRO / DRL / DRH, Progressive Ratio). The Rust engine is bit-equivalent on 14 deterministic conformance fixtures and provides PyO3 / WASM / C FFI / KMP bindings.
+The Python engine ships every Ferster–Skinner schedule (FR / VR / RR / FI / VI / RI / FT / VT / RT / CRF / EXT, Concurrent, Alternative, DRO / DRL / DRH, Progressive Ratio). The Rust engine replays contingency-py's conformance fixtures and matches every deterministic one bit for bit (the seeded VR / VI / RI / RR / VT / RT fixtures are skipped because the two ports use different PRNGs); it provides PyO3 / WASM / C FFI / KMP bindings.
 
 ```python
 from contingency import ScheduleBuilder
@@ -261,6 +261,8 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
 | [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
+| [operantkit-mcp](https://github.com/OperantKit/operantkit-mcp) | MCP server (stdio) for AI assistants: check / simulate a DSL schedule, DSL ↔ Method section, summarize / analyze OKL logs |
+| [claude-plugin](https://github.com/OperantKit/claude-plugin) | Claude Code plugin: skill + MCP config for designing and simulating reinforcement schedules |
 | [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
 
 <!-- PUBLISHED_PACKAGES_END -->
