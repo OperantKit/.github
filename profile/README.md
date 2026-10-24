@@ -246,6 +246,7 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [contingency-dsl-py](https://github.com/OperantKit/contingency-dsl-py) | Python reference parser (stdlib only; ships 6 core annotation extensions) |
 | [contingency-dsl2procedure](https://github.com/OperantKit/contingency-dsl2procedure) | DSL AST → JEAB/J-ABA Method section compiler |
 | [contingency-procedure2dsl](https://github.com/OperantKit/contingency-procedure2dsl) | Method section text → DSL AST extractor |
+| [contingency-dsl-e2e-roundtrip](https://github.com/OperantKit/contingency-dsl-e2e-roundtrip) | End-to-end round-trip harness: paper Method → DSL → Method → DSL over a corpus of published Method sections |
 | [contingency-py](https://github.com/OperantKit/contingency-py) | Python reinforcement schedule engine (DSL AST → Schedule bridge + all schedules) |
 | [contingency-rs](https://github.com/OperantKit/contingency-rs) | Rust engine (PyO3 / WASM / C FFI / KMP bindings, HIL binary) |
 | [experiment-core](https://github.com/OperantKit/experiment-core) | Session lifecycle, ExperimentContext, Renewal (ABA/AAB/ABC), EventSink Protocol |
@@ -253,9 +254,9 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [session-recorder](https://github.com/OperantKit/session-recorder) | OKL v1 Python writer (OklSink, EventSink impl) + Python reader; reference implementation of the spec |
 | [session-runner](https://github.com/OperantKit/session-runner) | Manual session driver (SessionRunner): pushes events to any EventSink |
 | [experiment-io](https://github.com/OperantKit/experiment-io) | HAL Protocols + virtual/serial/HIL backends + drive() helper |
-| [contingency-bench](https://github.com/OperantKit/contingency-bench) | HIL timing-precision benchmark harness |
+| [contingency-bench](https://github.com/OperantKit/contingency-bench) | Benchmark runner for LLM-as-subject sessions and matching-law parameter recovery |
 | [schedule-writer](https://github.com/OperantKit/schedule-writer) | DSL authoring tool (list/dropdown → DSL text) |
-| [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | DSL visualizer (環境状態の時間前後戻し) |
+| [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | Draws, without running a session, a timeline of when each component of a schedule expression makes a reinforcer available |
 | [session-visualizer](https://github.com/OperantKit/session-visualizer) | Live session viewer (in-process EventSink + cross-process JSONL/OKL tail, SSE) |
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
@@ -263,7 +264,8 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
 | [operantkit-mcp](https://github.com/OperantKit/operantkit-mcp) | MCP server (stdio) for AI assistants: check / simulate a DSL schedule, DSL ↔ Method section, summarize / analyze OKL logs |
 | [claude-plugin](https://github.com/OperantKit/claude-plugin) | Claude Code plugin: skill + MCP config for designing and simulating reinforcement schedules |
-| [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
+| [ai-operant-box](https://github.com/OperantKit/ai-operant-box) | LLM-as-subject simulator: an LLM or a numerical agent is the organism in a discrete-time SD-R-SR chamber (CRF / FI / variable schedules with exponentially drawn values, dyadic interdependent schedule, two-lever concurrent VI VI via contingency-py with a matching-law fit); optional OKL v1 mirror and cumulative records via experiment-core / session-recorder / session-analyzer |
+| [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package that depends on all OperantKit libraries and the operant command (not on PyPI yet) |
 
 <!-- PUBLISHED_PACKAGES_END -->
 

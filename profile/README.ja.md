@@ -239,31 +239,33 @@ OKL ログから 20 を超える定量分析を直接実行する：累積記録
 
 ## 公開パッケージ
 
-| Package | Role |
+| パッケージ | 役割 |
 |---|---|
-| [contingency-dsl](https://github.com/OperantKit/contingency-dsl) | Language-independent DSL specification (EBNF, AST schema, conformance tests) |
-| [contingency-respondent-dsl](https://github.com/OperantKit/contingency-respondent-dsl) | Tier B Pavlovian procedures extending the Respondent layer |
-| [contingency-dsl-py](https://github.com/OperantKit/contingency-dsl-py) | Python reference parser (stdlib only; ships 6 core annotation extensions) |
-| [contingency-dsl2procedure](https://github.com/OperantKit/contingency-dsl2procedure) | DSL AST → JEAB/J-ABA Method section compiler |
-| [contingency-procedure2dsl](https://github.com/OperantKit/contingency-procedure2dsl) | Method section text → DSL AST extractor |
-| [contingency-py](https://github.com/OperantKit/contingency-py) | Python reinforcement schedule engine (DSL AST → Schedule bridge + all schedules) |
-| [contingency-rs](https://github.com/OperantKit/contingency-rs) | Rust engine (PyO3 / WASM / C FFI / KMP bindings, HIL binary) |
-| [experiment-core](https://github.com/OperantKit/experiment-core) | Session lifecycle, ExperimentContext, Renewal (ABA/AAB/ABC), EventSink Protocol |
-| [OperantKitLog](https://github.com/OperantKit/OperantKitLog) | OKL v1 wire-format spec (canonical, language-independent) + conformance fixtures |
-| [session-recorder](https://github.com/OperantKit/session-recorder) | OKL v1 Python writer (OklSink, EventSink impl) + Python reader; reference implementation of the spec |
-| [session-runner](https://github.com/OperantKit/session-runner) | Manual session driver (SessionRunner): pushes events to any EventSink |
-| [experiment-io](https://github.com/OperantKit/experiment-io) | HAL Protocols + virtual/serial/HIL backends + drive() helper |
-| [contingency-bench](https://github.com/OperantKit/contingency-bench) | HIL timing-precision benchmark harness |
-| [schedule-writer](https://github.com/OperantKit/schedule-writer) | DSL authoring tool (list/dropdown → DSL text) |
-| [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | DSL visualizer (環境状態の時間前後戻し) |
-| [session-visualizer](https://github.com/OperantKit/session-visualizer) | Live session viewer (in-process EventSink + cross-process JSONL/OKL tail, SSE) |
-| [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
-| [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
-| [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
-| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
-| [operantkit-mcp](https://github.com/OperantKit/operantkit-mcp) | MCP server (stdio) for AI assistants: check / simulate a DSL schedule, DSL ↔ Method section, summarize / analyze OKL logs |
-| [claude-plugin](https://github.com/OperantKit/claude-plugin) | Claude Code plugin: skill + MCP config for designing and simulating reinforcement schedules |
-| [operantkit](https://github.com/OperantKit/operantkit-py) | Meta-package: `pip install operantkit` installs all OperantKit libraries and the operant command |
+| [contingency-dsl](https://github.com/OperantKit/contingency-dsl) | 言語に依存しない DSL の仕様（EBNF、AST スキーマ、適合テスト） |
+| [contingency-respondent-dsl](https://github.com/OperantKit/contingency-respondent-dsl) | レスポンデント層を拡張する Tier B のパヴロフ型手続き |
+| [contingency-dsl-py](https://github.com/OperantKit/contingency-dsl-py) | Python の参照パーサ（標準ライブラリのみ。中核の注釈拡張 6 種を同梱） |
+| [contingency-dsl2procedure](https://github.com/OperantKit/contingency-dsl2procedure) | DSL AST から JEAB／J-ABA 形式の Method 節を作るコンパイラ |
+| [contingency-procedure2dsl](https://github.com/OperantKit/contingency-procedure2dsl) | Method 節の文章から DSL AST を取り出す抽出器 |
+| [contingency-dsl-e2e-roundtrip](https://github.com/OperantKit/contingency-dsl-e2e-roundtrip) | 往復を端から端まで確かめる検証環境: 論文の Method 節 → DSL → Method 節 → DSL を、公刊済みの Method 節の集まりに対して回す |
+| [contingency-py](https://github.com/OperantKit/contingency-py) | Python の強化スケジュールエンジン（DSL AST から Schedule への橋渡しと全スケジュール） |
+| [contingency-rs](https://github.com/OperantKit/contingency-rs) | Rust のエンジン（PyO3／WASM／C FFI／KMP のバインディング、HIL 用のバイナリ） |
+| [experiment-core](https://github.com/OperantKit/experiment-core) | セッションのライフサイクル、ExperimentContext、復元効果（ABA／AAB／ABC）、EventSink プロトコル |
+| [OperantKitLog](https://github.com/OperantKit/OperantKitLog) | OKL v1 の記録形式の仕様（正典、言語に依存しない）と適合テスト用のデータ |
+| [session-recorder](https://github.com/OperantKit/session-recorder) | OKL v1 の Python の書き出し（OklSink、EventSink の実装）と Python の読み込み。仕様の参照実装 |
+| [session-runner](https://github.com/OperantKit/session-runner) | 手動でセッションを進める駆動部（SessionRunner）: 任意の EventSink へイベントを送る |
+| [experiment-io](https://github.com/OperantKit/experiment-io) | HAL のプロトコル、仮想／シリアル／HIL のバックエンド、drive() 補助関数 |
+| [contingency-bench](https://github.com/OperantKit/contingency-bench) | LLM を被験体にしたセッションと、対応法則のパラメータ復元のためのベンチマーク実行器 |
+| [schedule-writer](https://github.com/OperantKit/schedule-writer) | DSL の作成ツール（一覧・ドロップダウンの選択から DSL の文字列へ） |
+| [schedule-visualizer](https://github.com/OperantKit/schedule-visualizer) | スケジュール式の各成分がいつ強化子を設定するかを、セッションを走らせずに時間軸の図に描く |
+| [session-visualizer](https://github.com/OperantKit/session-visualizer) | 実行中のセッションを見るビューア（同じプロセス内の EventSink と、別プロセスの JSONL／OKL の追従、SSE） |
+| [session-analyzer](https://github.com/OperantKit/session-analyzer) | 累積記録、統計、モデルの当てはめ |
+| [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 記録したセッションの 3D アニメーション（CSV／JSONL／OKL v1 → MP4／GIF／PNG） |
+| [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | 実験と教育のための画面（Next.js） |
+| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | 1 コマンドでセッションを走らせる: DSL の文字列 → スケジュール → SessionRunner → OKL v1（仮想／シリアル／HIL） |
+| [operantkit-mcp](https://github.com/OperantKit/operantkit-mcp) | AI アシスタント向けの MCP サーバ（stdio）: DSL のスケジュールの検査と模擬実行、DSL と Method 節の相互変換、OKL ログの要約と解析 |
+| [claude-plugin](https://github.com/OperantKit/claude-plugin) | Claude Code のプラグイン: 強化スケジュールを設計し模擬実行するためのスキルと MCP の設定 |
+| [ai-operant-box](https://github.com/OperantKit/ai-operant-box) | LLM を被験体にするシミュレータ: LLM か数値のエージェントが、離散時間の SD-R-SR 実験箱の被験体になる（CRF／FI／指数分布から値を引く変動スケジュール、2 者の相互依存スケジュール、contingency-py による 2 レバーの並立 VI VI と対応法則の当てはめ）。experiment-core／session-recorder／session-analyzer を通した OKL v1 への複製と累積記録も使える |
+| [operantkit](https://github.com/OperantKit/operantkit-py) | OperantKit の全ライブラリと operant コマンドに依存するメタパッケージ（まだ PyPI に無い） |
 
 <!-- PUBLISHED_PACKAGES_END -->
 
