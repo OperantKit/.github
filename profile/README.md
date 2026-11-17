@@ -261,7 +261,7 @@ Measurement specifications (response rate, reinforcement rate, IRT distributions
 | [session-analyzer](https://github.com/OperantKit/session-analyzer) | Cumulative records, statistics, model fitting |
 | [result-chamber-animator](https://github.com/OperantKit/result-chamber-animator) | 3D animation of recorded sessions (CSV / JSONL / OKL v1 → MP4 / GIF / PNG) |
 | [operantkit-frontend](https://github.com/OperantKit/operantkit-frontend) | Experiment/education UI (Next.js) |
-| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual / serial / HIL) |
+| [operantkit-cli](https://github.com/OperantKit/operantkit-cli) | One-command session runner: DSL string → schedule → SessionRunner → OKL v1 (virtual subject / serial device; HIL not yet exposed) |
 | [operantkit-mcp](https://github.com/OperantKit/operantkit-mcp) | MCP server (stdio) for AI assistants: check / simulate a DSL schedule, DSL ↔ Method section, summarize / analyze OKL logs |
 | [claude-plugin](https://github.com/OperantKit/claude-plugin) | Claude Code plugin: skill + MCP config for designing and simulating reinforcement schedules |
 | [ai-operant-box](https://github.com/OperantKit/ai-operant-box) | LLM-as-subject simulator: an LLM or a numerical agent is the organism in a discrete-time SD-R-SR chamber (CRF / FI / variable schedules with exponentially drawn values, dyadic interdependent schedule, two-lever concurrent VI VI via contingency-py with a matching-law fit); optional OKL v1 mirror and cumulative records via experiment-core / session-recorder / session-analyzer |
