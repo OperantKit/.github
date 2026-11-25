@@ -206,6 +206,7 @@ flowchart LR
 | [OperantKitLog](https://github.com/OperantKit/OperantKitLog) | OKL v1 wire-format spec (canonical, language-independent) + conformance fixtures |
 | [session-recorder](https://github.com/OperantKit/session-recorder) | OKL v1 Python writer (OklSink, EventSink impl) + Python reader; reference implementation of the spec; owns the record types and the EventSink Protocol |
 | [session-recorder-rs](https://github.com/OperantKit/session-recorder-rs) | OKL v1 writer and reader in Rust; byte-compatible with the Python writer, reads the same conformance files |
+| [experiment-core-rs](https://github.com/OperantKit/experiment-core-rs) | One reinforcement session in Rust: states, exit condition, Poisson virtual subject, OKL v1 log; byte-identical to the Python `operant run` on the same spec, seed and platform |
 | [session-runner](https://github.com/OperantKit/session-runner) | Manual session driver (SessionRunner): pushes events to any EventSink |
 | [experiment-io](https://github.com/OperantKit/experiment-io) | HAL Protocols + virtual/serial/HIL backends + drive() helper |
 | [contingency-bench](https://github.com/OperantKit/contingency-bench) | Benchmark runner for LLM-as-subject sessions and matching-law parameter recovery |
