@@ -205,6 +205,7 @@ flowchart LR
 | [experiment-core](https://github.com/OperantKit/experiment-core) | セッションのライフサイクル、ExperimentContext、復元効果 (renewal; ABA／AAB／ABC)、EventSink プロトコル |
 | [OperantKitLog](https://github.com/OperantKit/OperantKitLog) | OKL v1 の記録形式の仕様 (正典、言語に依存しない) と適合テスト用のデータ |
 | [session-recorder](https://github.com/OperantKit/session-recorder) | OKL v1 の Python の書き出し (OklSink、EventSink の実装) と Python の読み込み。仕様の参照実装 |
+| [session-recorder-rs](https://github.com/OperantKit/session-recorder-rs) | Rust で書いた OKL v1 の書き出しと読み込み。Python の書き出しとバイト単位で同じ物を書き、同じ適合テストのファイルを読む |
 | [session-runner](https://github.com/OperantKit/session-runner) | 手動でセッションを進める駆動部 (SessionRunner): 任意の EventSink へイベントを送る |
 | [experiment-io](https://github.com/OperantKit/experiment-io) | HAL のプロトコル、仮想／シリアル／HIL のバックエンド、drive() 補助関数 |
 | [contingency-bench](https://github.com/OperantKit/contingency-bench) | LLM を被験体にしたセッションと、対応法則 (matching law) のパラメータ復元のためのベンチマーク実行器 |
