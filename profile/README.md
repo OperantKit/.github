@@ -41,7 +41,7 @@ pip install --no-deps $G/contingency-dsl-py $G/contingency-py $G/experiment-core
 pip install numpy scipy matplotlib
 ```
 
-`pip check` will report version mismatches between these development builds; they do not affect the commands below.
+`pip check` reports nothing.
 
 Run a fixed-interval 30-s schedule on the built-in virtual subject until 5 reinforcers:
 

@@ -41,7 +41,7 @@ pip install --no-deps $G/contingency-dsl-py $G/contingency-py $G/experiment-core
 pip install numpy scipy matplotlib
 ```
 
-`pip check` はこれら開発版どうしの版の食い違いを報告しますが、以下のコマンドには影響しません。
+`pip check` は何も報告しません。
 
 固定間隔 30 秒のスケジュールを、組み込みの仮想被験体で強化 5 回まで走らせます。
 
